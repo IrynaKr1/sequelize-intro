@@ -43,3 +43,15 @@ const { Op } = require('sequelize');
 //   });
 //   console.log('foundPhones', foundPhones);
 // })();
+//
+//*отримання списку телефонів старше 2023 року випуску,
+(async function () {
+  const foundPhones = await Phone.findAll({
+    raw: true,
+    attributes: {
+      exclude: ['createdAt', 'updatedAt'],
+    },
+    where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") <= 2023'),
+  });
+  console.log('foundPhones', foundPhones);
+})();
