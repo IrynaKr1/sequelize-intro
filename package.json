@@ -1,0 +1,20 @@
+{
+  "name": "sequelize-intro",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IrynaKr1/sequelize-intro.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IrynaKr1/sequelize-intro/issues"
+  },
+  "homepage": "https://github.com/IrynaKr1/sequelize-intro#readme"
+}
