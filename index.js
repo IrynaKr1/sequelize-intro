@@ -45,13 +45,26 @@ const { Op } = require('sequelize');
 // })();
 //
 //*отримання списку телефонів старше 2023 року випуску,
+// (async function () {
+//   const foundPhones = await Phone.findAll({
+//     raw: true,
+//     attributes: {
+//       exclude: ['createdAt', 'updatedAt'],
+//     },
+//     where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") <= 2023'),
+//   });
+//   console.log('foundPhones', foundPhones);
+// })();
+//
+//оновлення: змінити розмір оперативної пам'яті телефону з id: 1,
 (async function () {
-  const foundPhones = await Phone.findAll({
-    raw: true,
-    attributes: {
-      exclude: ['createdAt', 'updatedAt'],
+  const updatePhones = await Phone.update(
+    {
+      ram: 7,
     },
-    where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") <= 2023'),
-  });
-  console.log('foundPhones', foundPhones);
+    {
+      where: { id: 1 },
+    }
+  );
+  console.log('updatePhones', updatePhones);
 })();
