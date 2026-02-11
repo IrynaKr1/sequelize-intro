@@ -57,13 +57,26 @@ const { Op } = require('sequelize');
 // })();
 //
 //оновлення: змінити розмір оперативної пам'яті телефону з id: 1,
+// (async function () {
+//   const updatePhones = await Phone.update(
+//     {
+//       ram: 7,
+//     },
+//     {
+//       where: { id: 1 },
+//     }
+//   );
+//   console.log('updatePhones', updatePhones);
+// })();
+
+//*оновлення: додати нфс всім телефонам 2024 року випуску,
 (async function () {
   const updatePhones = await Phone.update(
     {
-      ram: 7,
+      isNfc: true,
     },
     {
-      where: { id: 1 },
+      where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") = 2024'),
     }
   );
   console.log('updatePhones', updatePhones);
