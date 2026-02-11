@@ -70,14 +70,32 @@ const { Op } = require('sequelize');
 // })();
 
 //*оновлення: додати нфс всім телефонам 2024 року випуску,
-(async function () {
-  const updatePhones = await Phone.update(
-    {
-      isNfc: true,
-    },
-    {
-      where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") = 2024'),
-    }
-  );
-  console.log('updatePhones', updatePhones);
-})();
+// (async function () {
+//   const updatePhones = await Phone.update(
+//     {
+//       isNfc: true,
+//     },
+//     {
+//       where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") = 2024'),
+//     }
+//   );
+//   console.log('updatePhones', updatePhones);
+// })();
+
+// видалення телефону з id: 2
+// (async function () {
+//   const deletePhone = await Phone.destroy({
+//     where: { id: 2 },
+//   });
+
+//   console.log('deletePhone', deletePhone);
+// })();
+
+//*видалення телефонів 2016 року випуску
+// (async function () {
+//   const deletePhone = await Phone.destroy({
+//     where: sequelize.literal('EXTRACT(YEAR FROM "manufacturedYear") = 2016'),
+//   });
+
+//   console.log('deletePhone', deletePhone);
+// })();
