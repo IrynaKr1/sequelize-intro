@@ -99,3 +99,36 @@ const { Op } = require('sequelize');
 
 //   console.log('deletePhone', deletePhone);
 // })();
+
+//**вивести середній розмір оперативної пам'яті телефонів
+(async function () {
+  const awgCpu = await Phone.findAll({
+    raw: true,
+    attributes: [[sequelize.fn('AVG', sequelize.col('cpu')), 'avgCpu']],
+  });
+  console.log('awgCpu', awgCpu);
+})();
+
+//**вивести кількість телефонів кожної марки.
+(async function () {
+  const brandCount = await Phone.findAll({
+    raw: true,
+    attributes: [
+      'brand',
+      [sequelize.fn('COUNT', sequelize.col('id')), 'brand_count'],
+    ],
+    group: ['brand'],
+  });
+  console.log('brandCount', brandCount);
+})();
+
+//вивести бренди, у телефонів яких максимальна діагональ більше за 6.6
+(async function () {
+  const screenSize = await Phone.findAll({
+    raw: true,
+    attributes: ['brand'],
+    where: { screenSize: { [Op.gt]: 6.6 } },
+    group: ['brand'],
+  });
+  console.log('screenSize', screenSize);
+})();
