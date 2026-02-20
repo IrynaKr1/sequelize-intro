@@ -28,9 +28,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         type: DataTypes.STRING,
-        len: {
-          args: [1, 30],
-          msg: 'Model should have min 1 and max 30 char',
+        validate: {
+          len: {
+            args: [1, 30],
+            msg: 'Model should have min 1 and max 30 char',
+          },
         },
       },
       manufacturedYear: {
@@ -40,15 +42,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       ram: {
         type: DataTypes.INTEGER,
-        min: 0,
+        validate: { min: 0 },
       },
       cpu: {
         type: DataTypes.INTEGER,
-        min: 0,
+        validate: { min: 0 },
       },
       screenSize: {
         type: DataTypes.FLOAT,
-        isFloat: true,
+        validate: { isFloat: true },
         defaultValue: 6.5,
       },
       isNfc: {
