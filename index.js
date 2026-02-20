@@ -1,5 +1,14 @@
-const { sequelize, Phone } = require('./models');
-const { Op } = require('sequelize');
+const http = require('http');
+const app = require('./app');
+
+const PORT = process.env.PORT || 5000;
+const HOST = process.env.HOST || '127.0.0.1';
+
+const httpServer = http.createServer(app);
+
+httpServer.listen(PORT, HOST, () =>
+  console.log(`Server is listening http://${HOST}:${PORT}`)
+);
 
 //додавання нового телефону
 // (async function () {
@@ -101,36 +110,36 @@ const { Op } = require('sequelize');
 // })();
 
 //**вивести середній розмір оперативної пам'яті телефонів
-(async function () {
-  const avgRam = await Phone.findAll({
-    raw: true,
-    attributes: [[sequelize.fn('AVG', sequelize.col('ram')), 'avgRam']],
-  });
-  console.log('avgRam', avgRam);
-})();
+// (async function () {
+//   const avgRam = await Phone.findAll({
+//     raw: true,
+//     attributes: [[sequelize.fn('AVG', sequelize.col('ram')), 'avgRam']],
+//   });
+//   console.log('avgRam', avgRam);
+// })();
 
 //**вивести кількість телефонів кожної марки.
-(async function () {
-  const brandCount = await Phone.findAll({
-    raw: true,
-    attributes: [
-      'brand',
-      [sequelize.fn('COUNT', sequelize.col('id')), 'brand_count'],
-    ],
-    group: ['brand'],
-  });
-  console.log('brandCount', brandCount);
-})();
+// (async function () {
+//   const brandCount = await Phone.findAll({
+//     raw: true,
+//     attributes: [
+//       'brand',
+//       [sequelize.fn('COUNT', sequelize.col('id')), 'brand_count'],
+//     ],
+//     group: ['brand'],
+//   });
+//   console.log('brandCount', brandCount);
+// })();
 
 //вивести бренди, у телефонів яких максимальна діагональ більше за 6.6
-(async function () {
-  const screenSize = await Phone.findAll({
-    raw: true,
-    attributes: ['brand'],
-    group: ['brand'],
-    having: sequelize.where(sequelize.fn('MAX', sequelize.col('screenSize')), {
-      [Op.gt]: 6.6,
-    }),
-  });
-  console.log('screenSize > 6.6', screenSize);
-})();
+// (async function () {
+//   const screenSize = await Phone.findAll({
+//     raw: true,
+//     attributes: ['brand'],
+//     group: ['brand'],
+//     having: sequelize.where(sequelize.fn('MAX', sequelize.col('screenSize')), {
+//       [Op.gt]: 6.6,
+//     }),
+//   });
+//   console.log('screenSize > 6.6', screenSize);
+// })();
