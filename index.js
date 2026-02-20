@@ -102,11 +102,11 @@ const { Op } = require('sequelize');
 
 //**вивести середній розмір оперативної пам'яті телефонів
 (async function () {
-  const awgCpu = await Phone.findAll({
+  const avgRam = await Phone.findAll({
     raw: true,
-    attributes: [[sequelize.fn('AVG', sequelize.col('cpu')), 'avgCpu']],
+    attributes: [[sequelize.fn('AVG', sequelize.col('ram')), 'avgRam']],
   });
-  console.log('awgCpu', awgCpu);
+  console.log('avgRam', avgRam);
 })();
 
 //**вивести кількість телефонів кожної марки.
