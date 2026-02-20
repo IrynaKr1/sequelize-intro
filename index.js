@@ -127,8 +127,10 @@ const { Op } = require('sequelize');
   const screenSize = await Phone.findAll({
     raw: true,
     attributes: ['brand'],
-    where: { screenSize: { [Op.gt]: 6.6 } },
     group: ['brand'],
+    having: sequelize.where(sequelize.fn('MAX', sequelize.col('screenSize')), {
+      [Op.gt]: 6.6,
+    }),
   });
-  console.log('screenSize', screenSize);
+  console.log('screenSize > 6.6', screenSize);
 })();
