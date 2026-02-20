@@ -7,11 +7,11 @@ app.use(express.json());
 
 // Add endpoints handlers
 
-// POST /api/users {}
-// GET /api/users
-// GET /api/users/1
-// PATCH /api/users/1 {}
-// DELETE /api/users/1
+// POST /api/phones {}
+// GET /api/phones
+// GET /api/phones/1
+// PATCH /api/phones/1 {}
+// DELETE /api/phones/1
 
 app.use(errorHandlers.errorHandler);
 
