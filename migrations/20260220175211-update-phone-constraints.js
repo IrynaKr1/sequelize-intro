@@ -31,17 +31,21 @@ module.exports = {
       name: 'cpu_positive_check',
     });
 
-    await queryInterface.sequelize.query(`
-      ALTER TABLE phones 
-      ADD CONSTRAINT year_check 
-      CHECK (manufactured_year <= CURRENT_DATE)
-    `);
+    await queryInterface.addConstraint('phones', {
+      fields: ['manufactured_year'],
+      type: 'check',
+      where: {
+        manufactured_year: {
+          [Sequelize.Op.lte]: Sequelize.literal('CURRENT_DATE'),
+        },
+      },
+      name: 'year_check',
+    });
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.removeConstraint('phones', 'ram_positive_check');
     await queryInterface.removeConstraint('phones', 'cpu_positive_check');
     await queryInterface.removeConstraint('phones', 'year_check');
-
   },
 };
