@@ -11,3 +11,6 @@ Content-Type: application/json
     "screenSize": "6.3",
     "isNfc": true
 }
+
+### 200
+GET http://localhost:5000/api/phones
