@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const { phonesController } = require('../controllers');
+const { pagination } = require('../middleware');
 
 const phonesRouter = Router();
 
 phonesRouter
   .route('/')
-  .get(phonesController.getPhone)
+  .get(pagination.paginatePhone, phonesController.getPhone)
   .post(phonesController.createdPhone);
 
 phonesRouter

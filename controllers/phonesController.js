@@ -8,20 +8,25 @@ module.exports.createdPhone = async (req, res, next) => {
       return res.status(400).send('Something went wrong');
     }
 
-    res.status(201).send(createPhone);
+    res.status(201).send({ data: createPhone });
   } catch (error) {
     next(error);
   }
 };
 module.exports.getPhone = async (req, res, next) => {
+  const { limit, offset } = req.pagination;
+
   try {
     const founPhones = await Phone.findAll({
       raw: true,
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
+      limit,
+      offset,
+      order: ['id'],
     });
-    res.status(200).send(founPhones);
+    res.status(200).send({ data: founPhones });
   } catch (error) {
     next(error);
   }
