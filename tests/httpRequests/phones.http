@@ -3,12 +3,12 @@ POST http://localhost:5000/api/phones
 Content-Type: application/json
 
 {
-    "brand": "Google",
-    "model": "Pixel 10a",
-    "manufacturedYear": "2025-12-01",
-    "ram": "8",
-    "cpu": "4",
-    "screenSize": "6.3",
+    "brand": "Samsung",
+    "model": "Galaxy Ultra",
+    "manufacturedYear": "2025-10-12",
+    "ram": "12",
+    "cpu": "6",
+    "screenSize": "6.6",
     "isNfc": true
 }
 

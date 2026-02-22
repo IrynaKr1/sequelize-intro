@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { Phone } = require('./../models');
 
 module.exports.createdPhone = async (req, res, next) => {
@@ -8,7 +9,9 @@ module.exports.createdPhone = async (req, res, next) => {
       return res.status(400).send('Something went wrong');
     }
 
-    res.status(201).send({ data: createPhone });
+    const preparedPhone = _.omit(createPhone.get(), ['createdAt', 'updatedAt']);
+
+    res.status(201).send({ data: preparedPhone });
   } catch (error) {
     next(error);
   }
