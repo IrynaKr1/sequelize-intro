@@ -23,3 +23,27 @@ GET http://localhost:5000/api/phones/3
 
 ### 404
 GET http://localhost:5000/api/phones/444
+
+### 200
+PATCH http://localhost:5000/api/phones/3
+Content-Type: application/json
+
+{
+    "brand": "Change Brand"
+}
+
+### 404
+PATCH http://localhost:5000/api/phones/333
+Content-Type: application/json
+
+{
+    "brand": "Change"
+}
+
+### 500
+PATCH http://localhost:5000/api/phones/3
+Content-Type: application/json
+
+{
+    "model": "Pixel 10a"
+}
