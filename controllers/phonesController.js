@@ -80,4 +80,20 @@ module.exports.updatePhoneById = async (req, res, next) => {
     next(error);
   }
 };
-module.exports.deletePhoneById = async (req, res, next) => {};
+module.exports.deletePhoneById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const deletePhoneById = await Phone.destroy({
+      where: { id },
+    });
+
+    if (!deletePhoneById) {
+      return res.status(404).send('Phone not found');
+    }
+
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
