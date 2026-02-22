@@ -16,6 +16,7 @@ module.exports.createdPhone = async (req, res, next) => {
     next(error);
   }
 };
+
 module.exports.getPhone = async (req, res, next) => {
   const { limit, offset } = req.pagination;
 
@@ -34,6 +35,26 @@ module.exports.getPhone = async (req, res, next) => {
     next(error);
   }
 };
-module.exports.getPhoneById = async (req, res, next) => {};
+
+module.exports.getPhoneById = async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const foundPhoneById = await Phone.findByPk(id, {
+      raw: true,
+      attributes: {
+        exclude: ['createdAt', 'updatedAt'],
+      },
+    });
+
+    if (!foundPhoneById) {
+      return res.status(404).send('Phone Not found');
+    }
+
+    res.status(200).send({ data: foundPhoneById });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports.updatePhoneById = async (req, res, next) => {};
 module.exports.deletePhoneById = async (req, res, next) => {};

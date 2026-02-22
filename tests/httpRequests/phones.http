@@ -17,3 +17,9 @@ GET http://localhost:5000/api/phones
 
 ### 200
 GET http://localhost:5000/api/phones?page=2&results=3
+
+### 200
+GET http://localhost:5000/api/phones/3
+
+### 404
+GET http://localhost:5000/api/phones/444
