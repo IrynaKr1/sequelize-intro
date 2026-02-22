@@ -1,0 +1,13 @@
+### 200 
+POST http://localhost:5000/api/phones
+Content-Type: application/json
+
+{
+    "brand": "Google",
+    "model": "Pixel 10a",
+    "manufacturedYear": "2025-12-01",
+    "ram": "8",
+    "cpu": "4",
+    "screenSize": "6.3",
+    "isNfc": true
+}
