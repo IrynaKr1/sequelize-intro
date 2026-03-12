@@ -53,3 +53,10 @@ DELETE http://localhost:5000/api/phones/5
 
 ###404
 DELETE http://localhost:5000/api/phones/333
+
+###200
+GET http://localhost:5000/api/phones/1/preorders
+
+###404
+GET http://localhost:5000/api/phones/222/preorders
+
