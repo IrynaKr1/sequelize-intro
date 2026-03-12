@@ -1,27 +1,54 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+const { STATUS } = require('./../constants');
+
 module.exports = (sequelize, DataTypes) => {
-  class preorder extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+  class Preorder extends Model {
+    static associate (models) {
+      Preorder.belongsTo(models.Phone, {
+        foreignKey: {
+          name: 'phoneId',
+        },
+      });
     }
   }
-  preorder.init({
-    orderDate: DataTypes.DATEONLY,
-    status: DataTypes.ENUM,
-    phoneQty: DataTypes.REAL,
-    phoneNumber: DataTypes.REAL
-  }, {
-    sequelize,
-    modelName: 'preorder',
-    underscored: true,
-  });
-  return preorder;
+  Preorder.init(
+    {
+      orderDate: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          isAfter: new Date(
+            new Date().setDate(new Date().getDate() - 1)
+          ).toISOString(),
+        },
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.STRING,
+        defaultValue: STATUS.pending,
+        validate: {
+          isIn: [Object.values(STATUS)],
+        },
+      },
+      phoneQty: {
+        type: DataTypes.REAL,
+        allowNull: false,
+        validate: {
+          min: 1,
+        },
+      },
+      phoneNumber: {
+        type: DataTypes.REAL,
+        validate: {
+          isNumeric: true,
+        },
+      },
+    },
+    {
+      sequelize,
+      modelName: 'Preorder',
+      underscored: true,
+    }
+  );
+  return Preorder;
 };

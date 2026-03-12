@@ -51,7 +51,7 @@ module.exports = {
       type: 'check',
       where: {
         order_date: {
-          [Sequelize.Op.eq]: Sequelize.literal('CURRENT_DATE'),
+          [Sequelize.Op.gte]: Sequelize.literal('CURRENT_DATE'),
         },
       },
     });
