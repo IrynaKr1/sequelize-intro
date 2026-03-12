@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { Phone } = require('./../models');
+const { Preorder, Phone } = require('./../models');
 
 module.exports.createdPhone = async (req, res, next) => {
   const { body } = req;
@@ -111,6 +111,24 @@ module.exports.getPhonesPreorders = async (req, res, next) => {
     });
 
     res.status(200).send({ data: preorders });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.createPhonePreorder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { body } = req;
+    const phone = await Phone.findByPk(id);
+    if (!phone) {
+      return res.status(404).json({ error: 'Phone not found' });
+    }
+
+    const preorder = await phone.createPreorder(body);
+
+    const preparedPreorder = _.omit(preorder.get(), ['createdAt', 'updatedAt']);
+    res.status(201).send({ data: preparedPreorder });
   } catch (error) {
     next(error);
   }

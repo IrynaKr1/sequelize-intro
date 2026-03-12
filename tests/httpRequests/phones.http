@@ -60,3 +60,22 @@ GET http://localhost:5000/api/phones/1/preorders
 ###404
 GET http://localhost:5000/api/phones/222/preorders
 
+### 201 
+POST http://localhost:5000/api/phones/6/preorders
+Content-Type: application/json
+
+{
+    "orderDate": "2026-03-12",
+    "phoneQty": 3,
+    "phoneNumber": 380991666555
+}
+
+### 404 
+POST http://localhost:5000/api/phones/999/preorders
+Content-Type: application/json
+
+{
+    "orderDate": "2025-03-12",
+    "phoneQty": 2,
+    "phoneNumber": 380991234567
+}

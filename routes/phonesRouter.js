@@ -15,6 +15,9 @@ phonesRouter
   .patch(phonesController.updatePhoneById)
   .delete(phonesController.deletePhoneById);
 
-phonesRouter.get('/:id/preorders', phonesController.getPhonesPreorders);
+phonesRouter
+  .route('/:id/preorders')
+  .get(phonesController.getPhonesPreorders)
+  .post(phonesController.createPhonePreorder);
 
 module.exports = phonesRouter;
