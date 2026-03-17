@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const { Preorder, Phone } = require('./../models');
+const { Preorder, Phone } = require('../db/models');
 
 module.exports.createdPhone = async (req, res, next) => {
   const { body } = req;

@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { STATUS } = require('../constants');
+const { STATUS } = require('../../constants');
 
 module.exports = (sequelize, DataTypes) => {
   class Preorder extends Model {
