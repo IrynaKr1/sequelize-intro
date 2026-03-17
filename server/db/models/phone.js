@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
-      image: DataTypes.STRING(255),
+      phone_image: DataTypes.STRING(255),
     },
     {
       sequelize,
