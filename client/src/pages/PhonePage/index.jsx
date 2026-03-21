@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PhoneForm from '../../components/PhoneForm';
+import PhoneForm from '../../components/forms/PhoneForm';
 import PhonesList from '../../components/PhonesList';
 
 function PhonePage () {

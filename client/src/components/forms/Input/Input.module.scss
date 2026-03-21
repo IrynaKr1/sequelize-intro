@@ -1,0 +1,48 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  padding: 0.6rem 0.9rem;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+
+  &:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  }
+}
+
+.valid {
+  border-color: #38a169;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.15);
+  }
+}
+
+.invalid {
+  border-color: #e53e3e;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+  }
+}
+
+.error {
+  font-size: 0.78rem;
+  color: #e53e3e;
+}
