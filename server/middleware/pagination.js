@@ -1,5 +1,5 @@
 module.exports.paginatePhone = (req, res, next) => {
-  const { page = 1, results = 2 } = req.query;
+  const { page = 1, results = 5 } = req.query;
 
   req.pagination = {
     limit: Number(results),
