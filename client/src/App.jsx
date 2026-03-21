@@ -1,12 +1,8 @@
-import { useState } from 'react';
 import './App.css';
+import PhonePage from './pages/PhonePage';
 
 function App () {
-  return (
-    <>
-      <div>Hello!</div>
-    </>
-  );
+  return <PhonePage />
 }
 
 export default App;
