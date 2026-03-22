@@ -3,8 +3,12 @@ const { Preorder, Phone } = require('../db/models');
 const createHttpError = require('http-errors');
 
 module.exports.createdPhone = async (req, res, next) => {
-  const { body } = req;
+  const { body, file } = req;
+
   try {
+    if (file) {
+      body.phone_image = file.filename;
+    }
     const createPhone = await Phone.create(body);
     if (!createPhone) {
       return res.status(400).send('Something went wrong');

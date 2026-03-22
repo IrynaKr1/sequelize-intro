@@ -18,4 +18,4 @@ function fileFilter (req, file, cb) {
 
 const upload = multer({ storage, fileFilter });
 
-module.exports.uploadPhoneImage = upload.single('phoneImage');
+module.exports.uploadPhoneImage = upload.single('phone_image');

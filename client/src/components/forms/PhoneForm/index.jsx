@@ -18,7 +18,18 @@ const INITIAL_VALUES = {
 
 function PhoneForm ({ createPhone }) {
   const handleSubmit = (values, { resetForm }) => {
-    createPhone(values);
+    const formData = new FormData();
+
+    formData.append('brand', values.brand);
+    formData.append('model', values.model);
+    formData.append('manufacturedYear', values.manufacturedYear);
+    formData.append('ram', values.ram);
+    formData.append('cpu', values.cpu);
+    formData.append('screenSize', values.screenSize);
+    formData.append('isNfc', values.isNfc);
+    formData.append('phone_image', values.phone_image);
+    createPhone(formData);
+
     resetForm();
   };
 
@@ -28,7 +39,7 @@ function PhoneForm ({ createPhone }) {
       validationSchema={PHONE_VALIDATION_SCHEMA}
       onSubmit={handleSubmit}
     >
-      {({ isSubmitting }) => (
+      {formikProps => (
         <Form className={styles.form} noValidate>
           <h2 className={styles.title}>Add phone</h2>
 
@@ -69,7 +80,14 @@ function PhoneForm ({ createPhone }) {
             placeholder='e.g. 6.7'
             step='0.1'
           />
-          <Input name='phone_image' label='Image' type='file' />
+          <Input
+            name='phone_image'
+            label='Image'
+            type='file'
+            onChange={e => {
+              formikProps.setFieldValue('phone_image', e.target.files[0]);
+            }}
+          />
 
           <div className={styles.checkboxField}>
             <Field
@@ -86,7 +104,7 @@ function PhoneForm ({ createPhone }) {
           <button
             type='submit'
             className={styles.button}
-            disabled={isSubmitting}
+            disabled={formikProps.isSubmitting}
           >
             Add Phone
           </button>
