@@ -33,46 +33,45 @@ function PhoneForm () {
 
           <Input
             name='brand'
-            label='Marka'
+            label='Brand'
             type='text'
-            placeholder='np. Samsung'
+            placeholder='e.g. Samsung'
           />
           <Input
             name='model'
             label='Model'
             type='text'
-            placeholder='np. Galaxy S24'
+            placeholder='e.g. Galaxy S24'
           />
           <Input
             name='manufacturedYear'
-            label='Rok produkcji'
+            label='Manufactured Year'
             type='number'
-            placeholder='np. 2023'
+            placeholder='e.g. 2023'
           />
           <Input
             name='ram'
             label='RAM (GB)'
             type='number'
-            placeholder='np. 8'
+            placeholder='e.g. 8'
           />
           <Input
             name='cpu'
-            label='CPU (rdzenie)'
+            label='CPU (cores)'
             type='number'
-            placeholder='np. 8'
+            placeholder='e.g. 8'
           />
           <Input
             name='screenSize'
-            label='Rozmiar ekranu (cale)'
+            label='Screen Size (inches)'
             type='number'
-            placeholder='np. 6.7'
+            placeholder='e.g. 6.7'
             step='0.1'
           />
           <Input
             name='phone_image'
-            label='Zdjęcie (URL)'
-            type='url'
-            placeholder='https://...'
+            label='Image (URL)'
+            type='file'
           />
 
           <div className={styles.checkboxField}>
@@ -92,7 +91,7 @@ function PhoneForm () {
             className={styles.button}
             disabled={isSubmitting}
           >
-            Dodaj telefon
+            Add Phone
           </button>
         </Form>
       )}
