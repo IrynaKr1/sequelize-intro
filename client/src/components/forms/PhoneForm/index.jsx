@@ -1,7 +1,9 @@
+import { connect } from 'react-redux';
 import { Formik, Form, Field } from 'formik';
 import Input from '../Input';
 import { PHONE_VALIDATION_SCHEMA } from './../../../utils/validationSchemas';
 import styles from './PhoneForm.module.scss';
+import { createPhoneThunk } from '../../../store/slices/phonesSlice';
 
 const INITIAL_VALUES = {
   brand: '',
@@ -14,10 +16,9 @@ const INITIAL_VALUES = {
   phone_image: '',
 };
 
-function PhoneForm () {
+function PhoneForm ({ createPhone }) {
   const handleSubmit = (values, { resetForm }) => {
-    console.log('Submitted:', values);
-    // TODO: dispatch(createPhoneThunk(values));
+    createPhone(values);
     resetForm();
   };
 
@@ -68,11 +69,7 @@ function PhoneForm () {
             placeholder='e.g. 6.7'
             step='0.1'
           />
-          <Input
-            name='phone_image'
-            label='Image (URL)'
-            type='file'
-          />
+          <Input name='phone_image' label='Image' type='file' />
 
           <div className={styles.checkboxField}>
             <Field
@@ -99,4 +96,8 @@ function PhoneForm () {
   );
 }
 
-export default PhoneForm;
+const mapDispatchToProps = dispatch => ({
+  createPhone: data => dispatch(createPhoneThunk(data)),
+});
+
+export default connect(null, mapDispatchToProps)(PhoneForm);

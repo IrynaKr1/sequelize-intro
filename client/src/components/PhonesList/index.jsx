@@ -4,9 +4,18 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import defImage from './defaultImg.jpg';
 import styles from './PhoneList.module.scss';
-import { getPhonesThunk } from '../../store/slices/phonesSlice';
+import {
+  deletePhoneThunk,
+  getPhonesThunk,
+} from '../../store/slices/phonesSlice';
 
-export const PhonesList = ({ phones, isFetching, error, getPhones }) => {
+export const PhonesList = ({
+  phones,
+  isFetching,
+  error,
+  getPhones,
+  deletePhones,
+}) => {
   useEffect(() => {
     getPhones();
   }, []);
@@ -37,7 +46,7 @@ export const PhonesList = ({ phones, isFetching, error, getPhones }) => {
               <ul className={styles.specs}>
                 <li>📅 {p.manufacturedYear.slice(0, 4)}</li>
                 <li>💾 RAM: {p.ram} GB</li>
-                <li>⚙️ CPU: {p.cpu} rdzeni</li>
+                <li>⚙️ CPU: {p.cpu} cores</li>
                 <li>📐 {p.screenSize}"</li>
               </ul>
               <span
@@ -46,7 +55,13 @@ export const PhonesList = ({ phones, isFetching, error, getPhones }) => {
                 {p.isNfc ? 'NFC' : 'No NFC'}
               </span>
             </div>
-
+            <button
+              onClick={() => {
+                deletePhones(p.id);
+              }}
+            >
+              X
+            </button>
           </li>
         ))}
       </ul>
@@ -58,6 +73,7 @@ const mapStateToProps = ({ phonesData }) => phonesData;
 
 const mapDispatchToProps = dispatch => ({
   getPhones: () => dispatch(getPhonesThunk()),
+  deletePhones: id => dispatch(deletePhoneThunk(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhonesList);

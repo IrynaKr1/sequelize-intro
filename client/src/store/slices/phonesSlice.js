@@ -9,6 +9,20 @@ const initialState = {
   error: null,
 };
 
+export const createPhoneThunk = createAsyncThunk(
+  `${PHONES_SLICE_NAME}/post`,
+  async (payload, { rejectWithValue }) => {
+    try {
+      const {
+        data: { data },
+      } = await API.createPhone(payload);
+      return data;
+    } catch (error) {
+      return rejectWithValue({ errors: error.response.data });
+    }
+  }
+);
+
 export const getPhonesThunk = createAsyncThunk(
   `${PHONES_SLICE_NAME}/get`,
   async (payload, { rejectWithValue }) => {
@@ -18,7 +32,19 @@ export const getPhonesThunk = createAsyncThunk(
       } = await API.getPhones();
       return data;
     } catch (error) {
-      return rejectWithValue({});
+      return rejectWithValue({ errors: error.response.data });
+    }
+  }
+);
+
+export const deletePhoneThunk = createAsyncThunk(
+  `${PHONES_SLICE_NAME}/delete`,
+  async (payload, { rejectWithValue }) => {
+    try {
+      await API.deletePhones(payload);
+      return payload;
+    } catch (error) {
+      return rejectWithValue({ errors: error.response.data });
     }
   }
 );
@@ -27,6 +53,21 @@ const phonesSlice = createSlice({
   name: PHONES_SLICE_NAME,
   initialState,
   extraReducers: builder => {
+    //create
+    builder.addCase(createPhoneThunk.pending, state => {
+      state.isFetching = true;
+      state.error = null;
+    });
+    builder.addCase(createPhoneThunk.fulfilled, (state, { payload }) => {
+      state.isFetching = false;
+      state.phones.push(payload);
+    });
+    builder.addCase(createPhoneThunk.rejected, (state, { payload }) => {
+      state.error = payload;
+      state.isFetching = false;
+    });
+
+    // get
     builder.addCase(getPhonesThunk.pending, state => {
       state.isFetching = true;
       state.error = null;
@@ -36,6 +77,20 @@ const phonesSlice = createSlice({
       state.isFetching = false;
     });
     builder.addCase(getPhonesThunk.rejected, (state, { payload }) => {
+      state.error = payload;
+      state.isFetching = false;
+    });
+
+    //delete
+    builder.addCase(deletePhoneThunk.pending, state => {
+      state.isFetching = true;
+      state.error = null;
+    });
+    builder.addCase(deletePhoneThunk.fulfilled, (state, { payload }) => {
+      state.phones = state.phones.filter(p => p.id !== payload);
+      state.isFetching = false;
+    });
+    builder.addCase(deletePhoneThunk.rejected, (state, { payload }) => {
       state.error = payload;
       state.isFetching = false;
     });

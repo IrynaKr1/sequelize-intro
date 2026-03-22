@@ -14,5 +14,5 @@ export const PHONE_VALIDATION_SCHEMA = yup.object({
   cpu: NUMBER_VALIDATION.min(1).max(16),
   screenSize: NUMBER_VALIDATION.min(3).max(8),
   isNfc: yup.boolean(),
-  phone_image: yup.string().required(),
+  phone_image: yup.string(),
 });
