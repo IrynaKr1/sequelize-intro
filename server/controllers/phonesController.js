@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const { Preorder, Phone } = require('../db/models');
+const createHttpError = require('http-errors');
 
 module.exports.createdPhone = async (req, res, next) => {
   const { body } = req;
@@ -129,6 +130,36 @@ module.exports.createPhonePreorder = async (req, res, next) => {
 
     const preparedPreorder = _.omit(preorder.get(), ['createdAt', 'updatedAt']);
     res.status(201).send({ data: preparedPreorder });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports.updatePhoneImage = async (req, res, next) => {
+  const {
+    file,
+    params: { id },
+  } = req;
+
+  try {
+    if (!file) {
+      return next(createHttpError(400, 'No file uploaded'));
+    }
+
+    const [upadtedPhoneCount, [updatedPhone]] = await Phone.update(
+      { phone_image: file.filename },
+      {
+        where: { id },
+        returning: true,
+        raw: true,
+      }
+    );
+    if (!upadtedPhoneCount) {
+      return next(createHttpError(404, 'Phone not found'));
+    }
+
+    const preparedPhone = _.omit(updatedPhone, ['createdAt', 'updatedAt']);
+    res.status(200).send({ data: preparedPhone });
   } catch (error) {
     next(error);
   }
