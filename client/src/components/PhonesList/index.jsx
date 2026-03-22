@@ -4,15 +4,11 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import defImage from './defaultImg.jpg';
 import styles from './PhoneList.module.scss';
+import { getPhonesThunk } from '../../store/slices/phonesSlice';
 
-export const PhonesList = ({ isFetching, error }) => {
-  const [phones, setPhones] = useState([]);
-
+export const PhonesList = ({ phones, isFetching, error, getPhones }) => {
   useEffect(() => {
-    fetch('http://localhost:5000/api/phones')
-      .then(res => res.json())
-      .then(data => setPhones(data.data))
-      .catch(err => console.log('err', err));
+    getPhones();
   }, []);
 
   return (
@@ -50,6 +46,7 @@ export const PhonesList = ({ isFetching, error }) => {
                 {p.isNfc ? 'NFC' : 'No NFC'}
               </span>
             </div>
+
           </li>
         ))}
       </ul>
@@ -59,6 +56,8 @@ export const PhonesList = ({ isFetching, error }) => {
 
 const mapStateToProps = ({ phonesData }) => phonesData;
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+  getPhones: () => dispatch(getPhonesThunk()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhonesList);

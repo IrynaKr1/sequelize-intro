@@ -9,9 +9,37 @@ const initialState = {
   error: null,
 };
 
+export const getPhonesThunk = createAsyncThunk(
+  `${PHONES_SLICE_NAME}/get`,
+  async (payload, { rejectWithValue }) => {
+    try {
+      const {
+        data: { data },
+      } = await API.getPhones();
+      return data;
+    } catch (error) {
+      return rejectWithValue({});
+    }
+  }
+);
+
 const phonesSlice = createSlice({
   name: PHONES_SLICE_NAME,
   initialState,
+  extraReducers: builder => {
+    builder.addCase(getPhonesThunk.pending, state => {
+      state.isFetching = true;
+      state.error = null;
+    });
+    builder.addCase(getPhonesThunk.fulfilled, (state, { payload }) => {
+      state.phones = payload;
+      state.isFetching = false;
+    });
+    builder.addCase(getPhonesThunk.rejected, (state, { payload }) => {
+      state.error = payload;
+      state.isFetching = false;
+    });
+  },
 });
 
 const { reducer } = phonesSlice;

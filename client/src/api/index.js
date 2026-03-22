@@ -5,3 +5,4 @@ const axiosInstance = axios.create({
 });
 
 export const getPhones = () => axiosInstance.get('/phones');
+export const createPhone = () => axiosInstance.create('/phones');
